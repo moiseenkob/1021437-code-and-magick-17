@@ -182,7 +182,7 @@
 </template>
 
 <script>
-  var fireballSize = 20;
+  var fireballSize = 22;
   var getFireballSpeed = function(left){
     if(left === true) {
       return 5;
@@ -196,13 +196,11 @@
   };
   /*Ширина по центру, так же добавил вычитание ширины самого мага, чтобы было максимально точно*/
   var getWizardX = function(width) {
-    var valueWizardWidth = (width / 2) - (wizardWidth / 2);
-    return valueWizardWidth;
+    return (width / 2) - (wizardWidth / 2);
   };
 
   var getWizardY = function(height) {    
-    var valueWizardHeight = (height * 2) / 3 - getWizardHeight();
-    return valueWizardHeight;
+    return (height * 2) / 3 - getWizardHeight();
   }
 
 </script>
