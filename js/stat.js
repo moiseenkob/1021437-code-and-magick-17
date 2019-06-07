@@ -37,7 +37,8 @@ window.renderStatistics = function (ctx, name, times) {
   ctx.fillText('Список результатов:', 120, 59);
 
   var createBar = function () {
-    name[i] === PLAYER ? ctx.fillStyle = 'rgba(255, 0, 0, 1)' : ctx.fillStyle = randomColor();
+
+    ctx.fillStyle = (name[i] === PLAYER ? 'rgba(255, 0, 0, 1)' : randomColor());
     ctx.fillRect(((140 + (GAP + BAR_W) * i)), 240, BAR_W, -(BAR_H * times[i]) / maxTime);
     ctx.fillStyle = '#000';
     ctx.fillText(Math.round(times[i]), (140 + (GAP + BAR_W) * i), 270 - (BAR_H * times[i]) / maxTime - 38);
