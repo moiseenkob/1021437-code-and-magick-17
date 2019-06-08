@@ -36,17 +36,18 @@ var randomColor = function () {
 };
 
 /* Функция создания столбика с рандомным цветом  */
-var createBar = function (ctx, namePlayer, timesPlay) {
+var createBar = function (ctx, namePlayer, timesPlay, val) {
+
   /* Поиск маскимального значения */
   var maxTime = getMaxElement(timesPlay);
+
   /* Цикл с помошью которого пробегаемся по массиву и строем столбики с помощью функции  */
-  for (var val = 0; val < namePlayer.length; val++) {
-    ctx.fillStyle = (namePlayer[val] === PLAYER ? 'rgba(255, 0, 0, 1)' : randomColor());
-    ctx.fillRect(((INDENT + (GAP + BAR_W) * val)), Y_RECTANGLE, BAR_W, -(BAR_H * timesPlay[val]) / maxTime);
-    ctx.fillStyle = DEFAULT_COLOR;
-    ctx.fillText(Math.round(timesPlay[val]), (INDENT + (GAP + BAR_W) * val), Y_TEXT - (BAR_H * timesPlay[val]) / maxTime);
-    ctx.fillText(namePlayer[val], (INDENT + (GAP + BAR_W) * val), Y_NAME);
-  }
+  ctx.fillStyle = (namePlayer[val] === PLAYER ? 'rgba(255, 0, 0, 1)' : randomColor());
+  ctx.fillRect(((INDENT + (GAP + BAR_W) * val)), Y_RECTANGLE, BAR_W, -(BAR_H * timesPlay[val]) / maxTime);
+  ctx.fillStyle = DEFAULT_COLOR;
+  ctx.fillText(Math.round(timesPlay[val]), (INDENT + (GAP + BAR_W) * val), Y_TEXT - (BAR_H * timesPlay[val]) / maxTime);
+  ctx.fillText(namePlayer[val], (INDENT + (GAP + BAR_W) * val), Y_NAME);
+
 };
 
 /* Функция обработки всей статистики и вывода её на экран */
@@ -62,8 +63,9 @@ window.renderStatistics = function (ctx, name, times) {
   ctx.fillText('Список результатов:', TEXT_TITLE_Y, 59);
 
   /* Вызов функции отрисовки*/
-  createBar(ctx, name, times);
-
+  for (var val = 0; val < name.length; val++) {
+    createBar(ctx, name, times, val);
+  }
 };
 
 
