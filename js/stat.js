@@ -34,9 +34,25 @@ var randomColor = function () {
   var x = (Math.random(10, 100)).toString(16).slice(-2);
   return '#' + '00538a' + x;
 };
+
+/* Функция создания столбика с рандомным цветом  */
+var createBar = function (ctx, namePlayer, timesPlay) {
+  /* Поиск маскимального значения */
+  var maxTime = getMaxElement(timesPlay);
+  /* Цикл с помошью которого пробегаемся по массиву и строем столбики с помощью функции  */
+  for (var val = 0; val < namePlayer.length; val++) {
+    ctx.fillStyle = (namePlayer[val] === PLAYER ? 'rgba(255, 0, 0, 1)' : randomColor());
+    ctx.fillRect(((INDENT + (GAP + BAR_W) * val)), Y_RECTANGLE, BAR_W, -(BAR_H * timesPlay[val]) / maxTime);
+    ctx.fillStyle = DEFAULT_COLOR;
+    ctx.fillText(Math.round(timesPlay[val]), (INDENT + (GAP + BAR_W) * val), Y_TEXT - (BAR_H * timesPlay[val]) / maxTime);
+    ctx.fillText(namePlayer[val], (INDENT + (GAP + BAR_W) * val), Y_NAME);
+  }
+};
+
 /* Функция обработки всей статистики и вывода её на экран */
 window.renderStatistics = function (ctx, name, times) {
 
+  /* Создание облаков */
   renderCloud(ctx, 110, 20, 'rgba(0, 0, 0, 0.7)');
   renderCloud(ctx, 100, 10, '#fff');
 
@@ -45,23 +61,9 @@ window.renderStatistics = function (ctx, name, times) {
   ctx.fillText('Ура вы победили!', TEXT_TITLE_Y, 41);
   ctx.fillText('Список результатов:', TEXT_TITLE_Y, 59);
 
-  var maxTime = getMaxElement(times);
+  /* Вызов функции отрисовки*/
+  createBar(ctx, name, times);
 
-  /* Функция создания столбика с рандомным цветом  */
-  var createBar = function (val) {
-
-    ctx.fillStyle = (name[val] === PLAYER ? 'rgba(255, 0, 0, 1)' : randomColor());
-    ctx.fillRect(((INDENT + (GAP + BAR_W) * val)), Y_RECTANGLE, BAR_W, -(BAR_H * times[val]) / maxTime);
-    ctx.fillStyle = DEFAULT_COLOR;
-    ctx.fillText(Math.round(times[val]), (INDENT + (GAP + BAR_W) * val), Y_TEXT - (BAR_H * times[val]) / maxTime);
-    ctx.fillText(name[val], (INDENT + (GAP + BAR_W) * val), Y_NAME);
-
-  };
-
-  /* Цикл с помошью которого пробегаемся по массиву и строем столбики с помощью функции  */
-  for (var i = 0; i < name.length; i++) {
-    createBar(i);
-  }
 };
 
 
