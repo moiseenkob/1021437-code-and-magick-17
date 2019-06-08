@@ -63,8 +63,8 @@ window.renderStatistics = function (ctx, name, times) {
   ctx.fillText('Список результатов:', TEXT_TITLE_Y, 59);
 
   /* Вызов функции отрисовки*/
-  for (var val = 0; val < name.length; val++) {
-    createBar(ctx, name, times, val);
+  for (var i = 0; i < name.length; i++) {
+    createBar(ctx, name, times, i);
   }
 };
 
