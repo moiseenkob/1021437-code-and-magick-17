@@ -27,6 +27,7 @@ var colorsMantleWizard = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 1
 /* Поля для отправки данных на сервер */
 var colorEyesWizardToSendServer = document.querySelector('.setup-wizard-appearance input[name="eyes-color"]');
 var colorMantleWizardToSendServer = document.querySelector('.setup-wizard-appearance input[name="coat-color"]');
+var colorFireballWizardToSendServer = document.querySelector('.setup-fireball-wrap input[name="fireball-color"] ');
 
 /* Функция генерации рандомных данных */
 var getRandomItem = function (arr) {
@@ -75,7 +76,9 @@ var onPopupEscPress = function (evt) {
   if (evt.keyCode === 27 && evt.target.type !== 'text') {
     closeModal();
   }
+
 };
+
 
 var openModal = function () {
   setupModal.classList.remove('hidden');
@@ -112,7 +115,7 @@ buttonOpenModal.addEventListener('keydown', function (evt) {
 var onFireballColorClick = function (evt) {
   var color = getRandomItem(colorsfireBallWizard);
   evt.currentTarget.style.background = color;
-  fireballColor.querySelector('input').value = color;
+  colorFireballWizardToSendServer.value = color;
 };
 fireballColor.addEventListener('click', onFireballColorClick);
 
@@ -131,3 +134,7 @@ var onEyesColorClick = function (evt) {
   colorEyesWizardToSendServer.value = color;
 };
 eyesColor.addEventListener('click', onEyesColorClick);
+
+
+/* Перетаскивание модального окна */
+
