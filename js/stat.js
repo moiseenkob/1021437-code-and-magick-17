@@ -17,7 +17,7 @@
   var createBar = function (ctx, namePlayer, timesPlay, val) {
 
     /* Поиск маскимального значения */
-    var maxTime = window.utilis.getMaxElement(timesPlay);
+    var maxTime = getMaxElement(timesPlay);
 
     /* Цикл с помошью которого пробегаемся по массиву и строем столбики с помощью функции  */
     ctx.fillStyle = (namePlayer[val] === PLAYER ? 'rgba(255, 0, 0, 1)' : window.utilis.randomColor());
@@ -26,6 +26,16 @@
     ctx.fillText(Math.round(timesPlay[val]), (INDENT + (GAP + BAR_W) * val), Y_TEXT - (BAR_H * timesPlay[val]) / maxTime);
     ctx.fillText(namePlayer[val], (INDENT + (GAP + BAR_W) * val), Y_NAME);
 
+  };
+
+  var getMaxElement = function (arr) {
+    var maxElement = arr[0];
+    for (var i = 0; i < arr.length; i++) {
+      if (maxElement < arr[i]) {
+        maxElement = arr[i];
+      }
+    }
+    return maxElement;
   };
 
   /* Функция обработки всей статистики и вывода её на экран */

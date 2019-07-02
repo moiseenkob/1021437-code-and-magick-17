@@ -4,8 +4,6 @@
 
   var COUNT_WIZARD = 4;
   var similarWizardsList = document.querySelector('.setup-similar-list');
-  /* Убрали класс скрытия "временно" */
-  document.querySelector('.setup-similar').classList.remove('hidden');
   /* Выбираем обёртку, чтобы снять нагрузку поиска */
   var wrapWizardPlayer = document.querySelector('.setup-player');
   var fireballColor = wrapWizardPlayer.querySelector('.setup-fireball-wrap');
@@ -19,14 +17,7 @@
   var colorEyesWizardToSendServer = document.querySelector('.setup-wizard-appearance input[name="eyes-color"]');
   var colorMantleWizardToSendServer = document.querySelector('.setup-wizard-appearance input[name="coat-color"]');
   var colorFireballWizardToSendServer = document.querySelector('.setup-fireball-wrap input[name="fireball-color"] ');
-
-  /* Вызов функции для создания объектов */
-  var items = window.utilis.generateWizard(COUNT_WIZARD);
-  /* Вызов функции генерации и вставления данных */
-  var fragment = window.utilis.getFragmentDate(items);
-  /* Добавление данных в DOM */
-  similarWizardsList.appendChild(fragment);
-
+  var wizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
   /* Работа с кликами для изменения цвета элементов мага */
   /* Рандом фаербола */
   var onFireballColorClick = function (evt) {
@@ -51,5 +42,22 @@
     colorEyesWizardToSendServer.value = color;
   };
   eyesColor.addEventListener('click', onEyesColorClick);
+
+  var superFunc = function (wizards) {
+    var fragment = document.createDocumentFragment();
+
+    for (var i = 0; i < COUNT_WIZARD; i++) {
+      var wizardMode = wizardTemplate.cloneNode(true);
+      wizardMode.querySelector('.setup-similar-label').textContent = wizards[i].name;
+      wizardMode.querySelector('.wizard-coat').style.fill = wizards[i].colorCoat;
+      wizardMode.querySelector('.wizard-eyes').style.fill = wizards[i].colorEyes;
+      wizardMode.querySelector('.wizard-eyes').style.fill = wizards[i].colorEyes;
+      fireballColor.style.fill = wizards[i].colorFireball;
+      fragment.appendChild(wizardMode);
+    }
+    similarWizardsList.appendChild(fragment);
+  };
+
+  window.backend.load(superFunc, window.backend.errorHandler);
 
 })();
