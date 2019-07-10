@@ -2,13 +2,12 @@
 
 (function () {
 
-  /* Переменные для открытия и закрытия меню */
   var buttonOpenModal = document.querySelector('.setup-open');
   var buttonCloseModal = document.querySelector('.setup-close');
   var setupModal = document.querySelector('.setup');
   var activeSetupSimilar = document.querySelector('.setup-similar');
   var form = document.querySelector('.setup-wizard-form');
-  /* Работа с попапом (открытие/закрытие) с элементами доступности*/
+
   var onPopupEscPress = function (evt) {
     if (evt.keyCode === 27 && evt.target.type !== 'text') {
       closeModal();
@@ -20,11 +19,12 @@
     setupModal.classList.remove('hidden');
     document.addEventListener('keydown', onPopupEscPress);
 
-    /* Прослушивание формы на отправку, отмена действия по умолчанию и отправка данных FormData */
+    /* listen form to send Data */
     form.addEventListener('submit', function (evt) {
       window.backend.save(new FormData(form), function () {
         setupModal.classList.add('hidden');
-      }, window.backend.errorHandler);
+      }, window.error.createModalErrorInfo);
+      window.error.removeModalErrorInfo();
       evt.preventDefault();
     });
   };
@@ -55,12 +55,12 @@
   });
 
   var iconMoveDialog = setupModal.querySelector('.upload');
-  var predmetWizard = setupModal.querySelector('.setup-artifacts-cell img');
+  var subjectWizard = setupModal.querySelector('.setup-artifacts-cell img');
 
-  predmetWizard.addEventListener('mousedown', function (evt) {
+  subjectWizard.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
 
-    var startPredmetCoordinates = {
+    var startSubjectCoordinates = {
       x: evt.clientX,
       y: evt.clientY
     };
@@ -69,17 +69,17 @@
       moveEvt.preventDefault();
 
       var Shift = {
-        x: startPredmetCoordinates.x - moveEvt.clientX,
-        y: startPredmetCoordinates.y - moveEvt.clientY
+        x: startSubjectCoordinates.x - moveEvt.clientX,
+        y: startSubjectCoordinates.y - moveEvt.clientY
       };
 
-      startPredmetCoordinates = {
+      startSubjectCoordinates = {
         x: moveEvt.clientX,
         y: moveEvt.clientY
       };
 
-      predmetWizard.style.top = (predmetWizard.offsetTop - Shift.y) + 'px';
-      predmetWizard.style.left = (predmetWizard.offsetLeft - Shift.x) + 'px';
+      subjectWizard.style.top = (subjectWizard.offsetTop - Shift.y) + 'px';
+      subjectWizard.style.left = (subjectWizard.offsetLeft - Shift.x) + 'px';
     };
 
     var onMouseUp = function (evtUp) {

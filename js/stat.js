@@ -13,14 +13,13 @@
   var DEFAULT_COLOR = '#000';
   var TEXT_TITLE_Y = 120;
 
-  /* Функция создания столбика с рандомным цветом  */
+  /* Create post and random color */
   var createBar = function (ctx, namePlayer, timesPlay, val) {
 
-    /* Поиск маскимального значения */
+    /* Find max number */
     var maxTime = getMaxElement(timesPlay);
 
-    /* Цикл с помошью которого пробегаемся по массиву и строем столбики с помощью функции  */
-    ctx.fillStyle = (namePlayer[val] === PLAYER ? 'rgba(255, 0, 0, 1)' : window.utilis.randomColor());
+    ctx.fillStyle = (namePlayer[val] === PLAYER ? 'rgba(255, 0, 0, 1)' : window.utils.randomColor());
     ctx.fillRect(((INDENT + (GAP + BAR_W) * val)), Y_RECTANGLE, BAR_W, -(BAR_H * timesPlay[val]) / maxTime);
     ctx.fillStyle = DEFAULT_COLOR;
     ctx.fillText(Math.round(timesPlay[val]), (INDENT + (GAP + BAR_W) * val), Y_TEXT - (BAR_H * timesPlay[val]) / maxTime);
@@ -38,19 +37,19 @@
     return maxElement;
   };
 
-  /* Функция обработки всей статистики и вывода её на экран */
+  /* The function of processing all statistics and displaying it on the screen */
   window.renderStatistics = function (ctx, name, times) {
 
-    /* Создание облаков */
-    window.utilis.renderCloud(ctx, 110, 20, 'rgba(0, 0, 0, 0.7)');
-    window.utilis.renderCloud(ctx, 100, 10, '#fff');
+    /* Create cloud */
+    window.utils.renderCloud(ctx, 110, 20, 'rgba(0, 0, 0, 0.7)');
+    window.utils.renderCloud(ctx, 100, 10, '#fff');
 
     ctx.font = '16px PT Mono';
     ctx.fillStyle = DEFAULT_COLOR;
-    ctx.fillText('Ура вы победили!', TEXT_TITLE_Y, 41);
-    ctx.fillText('Список результатов:', TEXT_TITLE_Y, 59);
+    ctx.fillText('You WIN!', TEXT_TITLE_Y, 41);
+    ctx.fillText('List of results:', TEXT_TITLE_Y, 59);
 
-    /* Вызов функции отрисовки*/
+    /* return function visible */
     for (var i = 0; i < name.length; i++) {
       createBar(ctx, name, times, i);
     }
